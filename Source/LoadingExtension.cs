@@ -6,9 +6,10 @@ namespace ExtendedGameOptions
     {
         public override void OnLevelLoaded(LoadMode mode)
         {
+            Achievements.Update();
+
             if (mode == LoadMode.NewGame || mode == LoadMode.LoadGame || mode == LoadMode.NewGameFromScenario)
             {
-                Achievements.Update();
                 GamePause.OnGameLoaded();
                 InfoViewButtons.Initialize();
             }
