@@ -14,7 +14,7 @@ namespace ExtendedGameOptions
 
         public string Description
         {
-            get { return "Collection of usefull options. (ver. 2017/12/18)"; }
+            get { return "Collection of small useful features."; }
         }
 
         #region Options UI
