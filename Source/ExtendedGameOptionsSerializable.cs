@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Xml.Serialization;
+using UnityEngine;
 
 namespace ExtendedGameOptions   
 {
@@ -13,6 +14,7 @@ namespace ExtendedGameOptions
         public bool InfoViewButtonsAlwaysEnabled = true;
         public bool BasicRoadsAvailableBromStart = true;
         public bool EnableRandomDisastersForScenarios = false;
+        public bool EnableAreasMaxCountOption = true;
         public int AreasMaxCount = 25;
 
         public int OilDepletionRate = 5; // 0 - 10
@@ -21,9 +23,17 @@ namespace ExtendedGameOptions
         public void Save()
         {
             XmlSerializer ser = new XmlSerializer(typeof(ExtendedGameOptionsSerializable));
-            TextWriter writer = new StreamWriter(getOptionsFilePath());
-            ser.Serialize(writer, this);
-            writer.Close();
+            try
+            {
+                TextWriter writer = new StreamWriter(getOptionsFilePath());
+                ser.Serialize(writer, this);
+                writer.Close();
+                Debug.Log("ExtendedGameOptionsMod: Options file is saved.");
+            }
+            catch
+            {
+                Debug.Log("ExtendedGameOptionsMod: Could not write options file.");
+            }
         }
         
         public static ExtendedGameOptionsSerializable CreateFromFile()
@@ -43,6 +53,7 @@ namespace ExtendedGameOptions
             }
             catch
             {
+                Debug.Log("ExtendedGameOptionsMod: Error reading options file.");
                 return null;
             }
         }
