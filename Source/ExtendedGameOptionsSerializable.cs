@@ -12,7 +12,12 @@ namespace ExtendedGameOptions
         public bool PauseOnLoad = true;
         public bool EnableAchievements = true;
         public bool InfoViewButtonsAlwaysEnabled = true;
+
+        // Basic unlocks
         public bool BasicRoadsAvailableBromStart = true;
+        public bool TrainTrackUnlock = true;
+        public bool MetroTrackUnlock = true;
+
         public bool EnableRandomDisastersForScenarios = false;
         public bool EnableAreasMaxCountOption = true;
         public int AreasMaxCount = 25;

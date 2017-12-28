@@ -29,7 +29,26 @@ namespace ExtendedGameOptions
             helper.AddCheckbox("Set pause when the game is loaded", o.PauseOnLoad, PauseOnLoadChanged);
             helper.AddCheckbox("Enable achievements", o.EnableAchievements, EnabledAchievementsChanged);
             helper.AddCheckbox("Info View buttons are always enabled", o.InfoViewButtonsAlwaysEnabled, InfoViewButtonsAlwaysEnabledChanged);
-            helper.AddCheckbox("Basic roads are available from the start", o.BasicRoadsAvailableBromStart, BasicRoadsAvailableBromStartChanged);
+
+            helper.AddSpace(20);
+
+            UIHelperBase basicUnlockGroup = helper.AddGroup("Basic unlocks (requires game reload)");
+            basicUnlockGroup.AddCheckbox("Basic roads are available from the start", o.BasicRoadsAvailableBromStart, delegate (bool isChecked)
+            {
+                o.BasicRoadsAvailableBromStart = isChecked;
+                modified = true;
+            });
+            basicUnlockGroup.AddCheckbox("Train tracks can be constructed without a train station", o.TrainTrackUnlock, delegate (bool isChecked)
+            {
+                o.TrainTrackUnlock = isChecked;
+                modified = true;
+            });
+            basicUnlockGroup.AddCheckbox("Metro tunnels can be constructed without a metro station", o.MetroTrackUnlock, delegate (bool isChecked)
+            {
+                o.MetroTrackUnlock = isChecked;
+                modified = true;
+            });
+
             if (SteamHelper.IsDLCOwned(SteamHelper.DLC.NaturalDisastersDLC))
             {
                 helper.AddCheckbox("Enable random disasters for scenarios", o.EnableRandomDisastersForScenarios, EnableRandomDisastersForScenariosChanged);
@@ -74,12 +93,6 @@ namespace ExtendedGameOptions
         private void InfoViewButtonsAlwaysEnabledChanged(bool isChecked)
         {
             Singleton<ExtendedGameOptionsManager>.instance.values.InfoViewButtonsAlwaysEnabled = isChecked;
-            modified = true;
-        }
-
-        private void BasicRoadsAvailableBromStartChanged(bool isChecked)
-        {
-            Singleton<ExtendedGameOptionsManager>.instance.values.BasicRoadsAvailableBromStart = isChecked;
             modified = true;
         }
 
