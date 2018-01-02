@@ -32,20 +32,30 @@ namespace ExtendedGameOptions
 
             helper.AddSpace(20);
 
-            UIHelperBase basicUnlockGroup = helper.AddGroup("Basic unlocks (requires game reload)");
-            basicUnlockGroup.AddCheckbox("Basic roads are available from the start", o.BasicRoadsAvailableBromStart, delegate (bool isChecked)
+            UIHelperBase unlockGroup = helper.AddGroup("Unlocks (requires game reload)");
+            unlockGroup.AddCheckbox("Basic roads are available from the start", o.BasicRoadsAvailableBromStart, delegate (bool isChecked)
             {
                 o.BasicRoadsAvailableBromStart = isChecked;
                 modified = true;
             });
-            basicUnlockGroup.AddCheckbox("Train tracks can be constructed without a train station", o.TrainTrackUnlock, delegate (bool isChecked)
+            unlockGroup.AddCheckbox("Train tracks can be constructed without a train station", o.TrainTrackUnlock, delegate (bool isChecked)
             {
                 o.TrainTrackUnlock = isChecked;
                 modified = true;
             });
-            basicUnlockGroup.AddCheckbox("Metro tunnels can be constructed without a metro station", o.MetroTrackUnlock, delegate (bool isChecked)
+            unlockGroup.AddCheckbox("Metro tunnels can be constructed without a metro station", o.MetroTrackUnlock, delegate (bool isChecked)
             {
                 o.MetroTrackUnlock = isChecked;
+                modified = true;
+            });
+            unlockGroup.AddCheckbox("Unlock everything up to the following milestone", o.UnlockMilestone, delegate (bool isChecked)
+            {
+                o.UnlockMilestone = isChecked;
+                modified = true;
+            });
+            unlockGroup.AddDropdown("     (select Megalopolis to unlock all)", Milestones.MilestoneLocalizedNames, o.UnlockMilestoneIndex - 1, delegate (int sel)
+            {
+                o.UnlockMilestoneIndex = sel + 1;
                 modified = true;
             });
 
@@ -69,7 +79,6 @@ namespace ExtendedGameOptions
 
         private void OptionPanel_eventVisibilityChanged(UIComponent component, bool value)
         {
-            //Debug.Log("optionPanel VisibilityChanged: " + value.ToString());
             if (modified && !value)
             {
                 Singleton<ExtendedGameOptionsManager>.instance.Save();

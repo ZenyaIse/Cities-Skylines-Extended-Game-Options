@@ -25,6 +25,9 @@ namespace ExtendedGameOptions
         public int OilDepletionRate = 5; // 0 - 10
         public int OreDepletionRate = 5;
 
+        public bool UnlockMilestone = false;
+        public int UnlockMilestoneIndex = 13; // 13 - Megalopolis (unlock all)
+
         public void Save()
         {
             XmlSerializer ser = new XmlSerializer(typeof(ExtendedGameOptionsSerializable));
