@@ -68,5 +68,14 @@ namespace ExtendedGameOptions
                 milestonesManager.UnlockMilestone("Milestone" + o.UnlockMilestoneIndex.ToString());
             }
         }
+
+        //public static void UnlockMilestone()
+        //{
+        //    if (!Singleton<UnlockManager>.exists) return;
+
+        //    UnlockManager um = Singleton<UnlockManager>.instance;
+
+        //    um.m_MilestonesWrapper.UnlockMilestone("Milestone" + Singleton<ExtendedGameOptionsManager>.instance.values.UnlockMilestoneIndex.ToString());
+        //}
     }
 }

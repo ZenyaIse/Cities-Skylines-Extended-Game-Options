@@ -26,9 +26,22 @@ namespace ExtendedGameOptions
         {
             ExtendedGameOptionsSerializable o = Singleton<ExtendedGameOptionsManager>.instance.values;
 
-            helper.AddCheckbox("Set pause when the game is loaded", o.PauseOnLoad, PauseOnLoadChanged);
-            helper.AddCheckbox("Enable achievements", o.EnableAchievements, EnabledAchievementsChanged);
-            helper.AddCheckbox("Info View buttons are always enabled", o.InfoViewButtonsAlwaysEnabled, InfoViewButtonsAlwaysEnabledChanged);
+            helper.AddCheckbox("Set pause when the game is loaded", o.PauseOnLoad, delegate (bool isChecked)
+            {
+                o.PauseOnLoad = isChecked;
+                modified = true;
+            });
+            helper.AddCheckbox("Enable achievements", o.EnableAchievements, delegate (bool isChecked)
+            {
+                o.EnableAchievements = isChecked;
+                Achievements.Update();
+                modified = true;
+            });
+            helper.AddCheckbox("Info View buttons are always enabled", o.InfoViewButtonsAlwaysEnabled, delegate (bool isChecked)
+            {
+                o.InfoViewButtonsAlwaysEnabled = isChecked;
+                modified = true;
+            });
 
             helper.AddSpace(20);
 
@@ -61,17 +74,47 @@ namespace ExtendedGameOptions
 
             if (SteamHelper.IsDLCOwned(SteamHelper.DLC.NaturalDisastersDLC))
             {
-                helper.AddCheckbox("Enable random disasters for scenarios", o.EnableRandomDisastersForScenarios, EnableRandomDisastersForScenariosChanged);
+                helper.AddCheckbox("Enable random disasters for scenarios", o.EnableRandomDisastersForScenarios, delegate (bool isChecked)
+                {
+                    o.EnableRandomDisastersForScenarios = isChecked;
+                    modified = true;
+                });
             }
-            helper.AddCheckbox("Change available areas as below (uncheck this if using 81 tiles mod)", o.EnableAreasMaxCountOption, EnableAreasMaxCountOptionChanged);
-            areasMaxCountDropdown = (UIDropDown)helper.AddDropdown("Available areas", Areas.GetAvailableValuesStr(), o.AreasMaxCount - 1, AreasMaxCountChanged);
-            //areasMaxCountDropdown.isEnabled = o.EnableAreasMaxCountOption;
+            helper.AddCheckbox("Change available areas as below (uncheck this if using 81 tiles mod)", o.EnableAreasMaxCountOption, delegate (bool isChecked)
+            {
+                Singleton<ExtendedGameOptionsManager>.instance.values.EnableAreasMaxCountOption = isChecked;
+
+                if (isChecked)
+                {
+                    Areas.Update();
+                }
+                else
+                {
+                    Areas.Reset();
+                }
+
+                modified = true;
+            });
+            areasMaxCountDropdown = (UIDropDown)helper.AddDropdown("Available areas", Areas.GetAvailableValuesStr(), o.AreasMaxCount - 1, delegate (int sel)
+            {
+                o.AreasMaxCount = sel + 1;
+                Areas.Update();
+                modified = true;
+            });
 
             helper.AddSpace(20);
 
             UIHelperBase resourcesHelper = helper.AddGroup("Resources depletion rate (move to the left for unlimited)");
-            resourcesHelper.AddSlider("Oil depletion rate", 0, 10, 1, o.OilDepletionRate, OilDepletionRateChanged);
-            resourcesHelper.AddSlider("Ore depletion rate", 0, 10, 1, o.OreDepletionRate, OreDepletionRateChanged);
+            resourcesHelper.AddSlider("Oil depletion rate", 0, 10, 1, o.OilDepletionRate, delegate (float val)
+            {
+                o.OilDepletionRate = (int)val;
+                modified = true;
+            });
+            resourcesHelper.AddSlider("Ore depletion rate", 0, 10, 1, o.OreDepletionRate, delegate (float val)
+            {
+                o.OreDepletionRate = (int)val;
+                modified = true;
+            });
 
             UIComponent optionPanel = areasMaxCountDropdown.parent.parent;
             optionPanel.eventVisibilityChanged += OptionPanel_eventVisibilityChanged;
@@ -84,72 +127,6 @@ namespace ExtendedGameOptions
                 Singleton<ExtendedGameOptionsManager>.instance.Save();
                 modified = false;
             }
-        }
-
-        private void PauseOnLoadChanged(bool isChecked)
-        {
-            Singleton<ExtendedGameOptionsManager>.instance.values.PauseOnLoad = isChecked;
-            modified = true;
-        }
-
-        private void EnabledAchievementsChanged(bool isChecked)
-        {
-            Singleton<ExtendedGameOptionsManager>.instance.values.EnableAchievements = isChecked;
-            Achievements.Update();
-            modified = true;
-        }
-
-        private void InfoViewButtonsAlwaysEnabledChanged(bool isChecked)
-        {
-            Singleton<ExtendedGameOptionsManager>.instance.values.InfoViewButtonsAlwaysEnabled = isChecked;
-            modified = true;
-        }
-
-        private void EnableRandomDisastersForScenariosChanged(bool isChecked)
-        {
-            Singleton<ExtendedGameOptionsManager>.instance.values.EnableRandomDisastersForScenarios = isChecked;
-            //OptionsGameplayPanel optionsGameplayPanel = Object.FindObjectOfType<OptionsGameplayPanel>();
-            modified = true;
-        }
-
-        private void EnableAreasMaxCountOptionChanged(bool isChecked)
-        {
-            Singleton<ExtendedGameOptionsManager>.instance.values.EnableAreasMaxCountOption = isChecked;
-
-            if (isChecked)
-            {
-                Areas.Update();
-            }
-            else
-            {
-                Areas.Reset();
-            }
-
-            modified = true;
-
-            //if (areasMaxCountDropdown != null)
-            //{
-            //    areasMaxCountDropdown.isEnabled = isChecked;
-            //}
-        }
-
-        private void AreasMaxCountChanged(int sel)
-        {
-            Singleton<ExtendedGameOptionsManager>.instance.values.AreasMaxCount = sel + 1;
-            Areas.Update();
-            modified = true;
-        }
-
-        private void OilDepletionRateChanged(float val)
-        {
-            Singleton<ExtendedGameOptionsManager>.instance.values.OilDepletionRate = (int)val;
-            modified = true;
-        }
-
-        private void OreDepletionRateChanged(float val)
-        {
-            Singleton<ExtendedGameOptionsManager>.instance.values.OreDepletionRate = (int)val;
-            modified = true;
         }
 
         #endregion
