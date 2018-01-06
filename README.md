@@ -17,10 +17,20 @@ Most info buttons (such as education, crime, land value, etc.) are disabled unti
 
 The idea was taken from the Info View Button Enabler mod by Zuppi (the implementation is different though).
 
-## Basic roads are available from the start
+## Unlocks
+### Basic roads are available from the start
 This option unlocks the "Basic Road Created" milestone from the beginning.
-This is very minor thing that removes the requirement to build a piece of two-lane road before building any other types of roads.
-Grateful to BlueSteelAUS for his Unlock Basic Roads mod.
+This is very minor thing that removes the requirement to build a piece of two-lane road before building any other types of roads. Grateful to BlueSteelAUS for Unlock Basic Roads mod.
+
+### Train tracks can be constructed without a train station
+and
+### Metro tunnels can be constructed without a metro station
+In the vanilla game you have to build a station before constructing a piece of railroad or metro tunnel. Checking these options removes this limitation. Grateful to TPB for Unlock Tracks + Metro Tunnels mod.
+
+### Milestone unlock
+Unlock everything up to a particular milestone. Select Megalopolis to unlock all.
+
+All unlock options will take effect only after reloading the game.
 
 ## Enable random disasters for scenarios
 If this option is enabled, random disasters would occur even if you are playing a scenario.
