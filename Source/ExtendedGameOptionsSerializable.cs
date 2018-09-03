@@ -7,8 +7,7 @@ namespace ExtendedGameOptions
 {
     public class ExtendedGameOptionsSerializable
     {
-        //private const string optionsFileName = "ExtendedGameOptions_v20171209.xml";
-        private const string optionsFileName = "ExtendedGameOptions_v20180527.xml";
+        private const string optionsFileName = "ExtendedGameOptions.xml";
 
         public bool PauseOnLoad = true;
         public bool EnableAchievements = true;
