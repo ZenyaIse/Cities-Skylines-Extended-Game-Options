@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Achievements.cs" />
     <Compile Include="Areas.cs" />
+    <Compile Include="Economy.cs" />
     <Compile Include="ExtendedGameOptionsManager.cs" />
     <Compile Include="ExtendedGameOptionsSerializable.cs" />
     <Compile Include="GamePause.cs" />

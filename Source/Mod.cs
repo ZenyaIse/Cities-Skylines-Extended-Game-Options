@@ -26,6 +26,9 @@ namespace ExtendedGameOptions
         {
             ExtendedGameOptionsSerializable o = Singleton<ExtendedGameOptionsManager>.instance.values;
 
+
+            //////////// General ////////////
+
             helper.AddCheckbox("Set pause when the game is loaded", o.PauseOnLoad, delegate (bool isChecked)
             {
                 o.PauseOnLoad = isChecked;
@@ -44,6 +47,9 @@ namespace ExtendedGameOptions
             });
 
             helper.AddSpace(20);
+
+
+            //////////// Unlocks ////////////
 
             UIHelperBase unlockGroup = helper.AddGroup("Unlocks (requires game reload)");
             unlockGroup.AddCheckbox("Basic roads are available from the start", o.BasicRoadsAvailableBromStart, delegate (bool isChecked)
@@ -72,6 +78,20 @@ namespace ExtendedGameOptions
                 modified = true;
             });
 
+
+            //////////// Economy ////////////
+
+            UIHelperBase economyGroup = helper.AddGroup("Economy");
+
+            economyGroup.AddCheckbox("Bulldozing structures built recently gives full refund", o.FullRefund, delegate (bool isChecked)
+            {
+                o.FullRefund = isChecked;
+                modified = true;
+            });
+
+
+            //////////// Others ////////////
+
             if (SteamHelper.IsDLCOwned(SteamHelper.DLC.NaturalDisastersDLC))
             {
                 helper.AddCheckbox("Enable random disasters for scenarios", o.EnableRandomDisastersForScenarios, delegate (bool isChecked)
@@ -80,7 +100,7 @@ namespace ExtendedGameOptions
                     modified = true;
                 });
             }
-            helper.AddCheckbox("Change available areas as below (uncheck this if using 81 tiles mod)", o.EnableAreasMaxCountOption, delegate (bool isChecked)
+            helper.AddCheckbox("Set number of purchasable areas (uncheck this if using 81 tiles mod)", o.EnableAreasMaxCountOption, delegate (bool isChecked)
             {
                 Singleton<ExtendedGameOptionsManager>.instance.values.EnableAreasMaxCountOption = isChecked;
 
@@ -95,7 +115,7 @@ namespace ExtendedGameOptions
 
                 modified = true;
             });
-            areasMaxCountDropdown = (UIDropDown)helper.AddDropdown("Available areas", Areas.GetAvailableValuesStr(), o.AreasMaxCount - 1, delegate (int sel)
+            areasMaxCountDropdown = (UIDropDown)helper.AddDropdown("Areas", Areas.GetAvailableValuesStr(), o.AreasMaxCount - 1, delegate (int sel)
             {
                 o.AreasMaxCount = sel + 1;
                 Areas.Update();
@@ -103,6 +123,9 @@ namespace ExtendedGameOptions
             });
 
             helper.AddSpace(20);
+
+
+            //////////// Resources ////////////
 
             UIHelperBase resourcesHelper = helper.AddGroup("Resources depletion rate (move to the left for unlimited)");
             resourcesHelper.AddSlider("Oil depletion rate", 0, 10, 1, o.OilDepletionRate, delegate (float val)
@@ -115,6 +138,7 @@ namespace ExtendedGameOptions
                 o.OreDepletionRate = (int)val;
                 modified = true;
             });
+
 
             UIComponent optionPanel = areasMaxCountDropdown.parent.parent;
             optionPanel.eventVisibilityChanged += OptionPanel_eventVisibilityChanged;

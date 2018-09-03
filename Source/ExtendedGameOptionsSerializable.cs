@@ -7,7 +7,8 @@ namespace ExtendedGameOptions
 {
     public class ExtendedGameOptionsSerializable
     {
-        private const string optionsFileName = "ExtendedGameOptions_v20171209.xml";
+        //private const string optionsFileName = "ExtendedGameOptions_v20171209.xml";
+        private const string optionsFileName = "ExtendedGameOptions_v20180527.xml";
 
         public bool PauseOnLoad = true;
         public bool EnableAchievements = true;
@@ -27,6 +28,8 @@ namespace ExtendedGameOptions
 
         public bool UnlockMilestone = false;
         public int UnlockMilestoneIndex = 13; // 13 - Megalopolis (unlock all)
+
+        public bool FullRefund = true;
 
         public void Save()
         {
