@@ -71,7 +71,11 @@ namespace ExtendedGameOptions
         private static string getOptionsFilePath()
         {
             //return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Colossal Order", "Cities_Skylines", optionsFileName);
-            return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Colossal Order\\Cities_Skylines\\" + optionsFileName;
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            path = Path.Combine(path, "Colossal Order");
+            path = Path.Combine(path, "Cities_Skylines");
+            path = Path.Combine(path, optionsFileName);
+            return path;
         }
     }
 }
