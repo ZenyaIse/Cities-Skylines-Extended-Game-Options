@@ -22,6 +22,39 @@ namespace ExtendedGameOptions
         private UIDropDown areasMaxCountDropdown;
         private bool modified = false;
 
+        private string getResourceSliderText(int value)
+        {
+            if (value == 0)
+            {
+                return "0% (unlimited)";
+            }
+            else
+            {
+                return (value * 10).ToString() + "%";
+            }
+        }
+
+        private void addLabelToResourceSlider(object obj)
+        {
+            UISlider uISlider = obj as UISlider;
+            if (uISlider == null) return;
+
+            UILabel label = uISlider.parent.AddUIComponent<UILabel>();
+            label.text = getResourceSliderText((int)uISlider.value);
+            label.textScale = 1f;
+            (uISlider.parent as UIPanel).autoLayout = false;
+            label.position = new Vector3(uISlider.position.x + uISlider.width + 15, uISlider.position.y);
+
+            UILabel titleLabel = (uISlider.parent as UIPanel).Find<UILabel>("Label");
+            titleLabel.anchor = UIAnchorStyle.None;
+            titleLabel.position = new Vector3(titleLabel.position.x, titleLabel.position.y + 3);
+
+            uISlider.eventValueChanged += new PropertyChangedEventHandler<float>(delegate (UIComponent component, float value)
+            {
+                label.text = getResourceSliderText((int)uISlider.value);
+            });
+        }
+
         public void OnSettingsUI(UIHelperBase helper)
         {
             ExtendedGameOptionsSerializable o = Singleton<ExtendedGameOptionsManager>.instance.values;
@@ -127,17 +160,17 @@ namespace ExtendedGameOptions
 
             //////////// Resources ////////////
 
-            UIHelperBase resourcesHelper = helper.AddGroup("Resources depletion rate (move to the left for unlimited)");
-            resourcesHelper.AddSlider("Oil depletion rate", 0, 10, 1, o.OilDepletionRate, delegate (float val)
+            UIHelperBase resourcesHelper = helper.AddGroup("Resources depletion rate");
+            addLabelToResourceSlider(resourcesHelper.AddSlider("Oil depletion rate", 0, 10, 1, o.OilDepletionRate, delegate (float val)
             {
                 o.OilDepletionRate = (int)val;
                 modified = true;
-            });
-            resourcesHelper.AddSlider("Ore depletion rate", 0, 10, 1, o.OreDepletionRate, delegate (float val)
+            }));
+            addLabelToResourceSlider(resourcesHelper.AddSlider("Ore depletion rate", 0, 10, 1, o.OreDepletionRate, delegate (float val)
             {
                 o.OreDepletionRate = (int)val;
                 modified = true;
-            });
+            }));
 
 
             UIComponent optionPanel = areasMaxCountDropdown.parent.parent;

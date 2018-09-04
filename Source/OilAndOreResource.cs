@@ -20,7 +20,10 @@ namespace ExtendedGameOptions
                     amount = amount * (10 - o.OreDepletionRate) / 10;
                 }
 
-                resourceManager.SetResource(x, z, type, (byte)(resourceManager.GetResource(x, z, type) - amount), false);
+                if (amount != 0)
+                {
+                    resourceManager.SetResource(x, z, type, (byte)(resourceManager.GetResource(x, z, type) - amount), false);
+                }
             }
         }
     }
