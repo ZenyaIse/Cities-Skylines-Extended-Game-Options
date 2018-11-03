@@ -56,24 +56,9 @@ namespace ExtendedGameOptions
 
             string path = getOptionsFilePath();
 
-            // If there is no the option file, look for the old version
             if (!File.Exists(path))
             {
-                instance = tryCreateFromPrevVersion();
-
-                if (instance != null)
-                {
-                    try
-                    {
-                        File.Delete(getOptionsFilePath_old());
-                    }
-                    catch
-                    {
-                        // Ignore
-                    }
-                    instance.Save();
-                    return instance;
-                }
+                return null;
             }
 
             try
@@ -99,27 +84,6 @@ namespace ExtendedGameOptions
             }
         }
 
-        private static ExtendedGameOptionsSerializable tryCreateFromPrevVersion()
-        {
-            string path = getOptionsFilePath_old();
-
-            if (!File.Exists(path)) return null;
-
-            try
-            {
-                XmlSerializer ser = new XmlSerializer(typeof(ExtendedGameOptionsSerializable));
-                TextReader reader = new StreamReader(path);
-                ExtendedGameOptionsSerializable instance = (ExtendedGameOptionsSerializable)ser.Deserialize(reader);
-                reader.Close();
-
-                return instance;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
         private static string getOptionsFilePath()
         {
             //return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Colossal Order", "Cities_Skylines", optionsFileName);
@@ -128,11 +92,6 @@ namespace ExtendedGameOptions
             path = Path.Combine(path, "Cities_Skylines");
             path = Path.Combine(path, optionsFileName);
             return path;
-        }
-
-        private static string getOptionsFilePath_old()
-        {
-            return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Colossal Order\\Cities_Skylines\\ExtendedGameOptions_v20171209.xml";
         }
     }
 }
