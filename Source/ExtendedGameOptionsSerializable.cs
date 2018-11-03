@@ -9,6 +9,8 @@ namespace ExtendedGameOptions
     {
         private const string optionsFileName = "ExtendedGameOptions.xml";
 
+        public int Version = 0; // Previous version (temporary)
+
         public bool PauseOnLoad = true;
         public bool EnableAchievements = true;
         public bool InfoViewButtonsAlwaysEnabled = true;
@@ -22,8 +24,8 @@ namespace ExtendedGameOptions
         public bool EnableAreasMaxCountOption = true;
         public int AreasMaxCount = 25;
 
-        public int OilDepletionRate = 5; // 0 - 10
-        public int OreDepletionRate = 5;
+        public int OilDepletionRate = 50; // 0 - 100
+        public int OreDepletionRate = 50;
 
         public bool UnlockMilestone = false;
         public int UnlockMilestoneIndex = 13; // 13 - Megalopolis (unlock all)
@@ -32,6 +34,8 @@ namespace ExtendedGameOptions
 
         public void Save()
         {
+            Version = 1;
+
             XmlSerializer ser = new XmlSerializer(typeof(ExtendedGameOptionsSerializable));
             try
             {
@@ -78,6 +82,13 @@ namespace ExtendedGameOptions
                 TextReader reader = new StreamReader(path);
                 instance = (ExtendedGameOptionsSerializable)ser.Deserialize(reader);
                 reader.Close();
+
+                // Convert from previous version
+                if (instance.Version == 0)
+                {
+                    instance.OilDepletionRate = Math.Min(100, instance.OilDepletionRate * 10);
+                    instance.OreDepletionRate = Math.Min(100, instance.OreDepletionRate * 10);
+                }
 
                 return instance;
             }

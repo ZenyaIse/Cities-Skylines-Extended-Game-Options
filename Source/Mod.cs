@@ -30,7 +30,7 @@ namespace ExtendedGameOptions
             }
             else
             {
-                return (value * 10).ToString() + "%";
+                return value.ToString() + "%";
             }
         }
 
@@ -161,12 +161,12 @@ namespace ExtendedGameOptions
             //////////// Resources ////////////
 
             UIHelperBase resourcesHelper = helper.AddGroup("Resources depletion rate");
-            addLabelToResourceSlider(resourcesHelper.AddSlider("Oil depletion rate", 0, 10, 1, o.OilDepletionRate, delegate (float val)
+            addLabelToResourceSlider(resourcesHelper.AddSlider("Oil depletion rate", 0, 100, 1, o.OilDepletionRate, delegate (float val)
             {
                 o.OilDepletionRate = (int)val;
                 modified = true;
             }));
-            addLabelToResourceSlider(resourcesHelper.AddSlider("Ore depletion rate", 0, 10, 1, o.OreDepletionRate, delegate (float val)
+            addLabelToResourceSlider(resourcesHelper.AddSlider("Ore depletion rate", 0, 100, 1, o.OreDepletionRate, delegate (float val)
             {
                 o.OreDepletionRate = (int)val;
                 modified = true;
