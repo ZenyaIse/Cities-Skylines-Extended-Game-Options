@@ -8,7 +8,7 @@ Automatically set pause when the game is loaded or started.
 The idea was taken from the Pause on load mod by MrLawbreaker (however the implementation is completely different).
 
 ## Enable achievements
-Usually you cannot get the steam achievements when you are using mods. If this option is enabled, you would be able to get the steam achievements.
+Usually you cannot get the steam achievements when you are using mods. If this option is enabled, you would be able to get the steam achievements. (The game still shows that the achievements are disabled, but actually they are enabled.)
 
 The idea was taken from the Mod Achievement Enabler (it is just one line of code).
 
@@ -50,17 +50,19 @@ http://steamcommunity.com/sharedfiles/filedetails/?id=823348129
 ## Available areas
 In the unmodded game you can unlock (purchase) only 9 areas on the map. With this option you can select how many areas (from 1 to 25) can be unlocked. The value can also be changed during the game.
 
-Most people wants 25 areas - this is set as the default value.
-
 The areas beyond the default 9 areas will be available to purchase after the last milestone is reached.
 
-You should disable this option if you are using 81 tiles mod or other mods that change the number of available areas (just uncheck "Change available areas...").
+You should disable this option if you are using 81 tiles mod or other mods that change the number of available areas (just uncheck "Set number of purchasable areas...").
+
+Disabled by default.
 
 ## Resources depletion rate
 This feature is based on the native Unlimited Oil and Ore mod from the vanilla game. Unlike the native version, here you can adjust the rate with which the resources are depleting.
 
-The left position of the sliders (0%) corresponds to unlimited use (resources will not deplete). The right position (100%) sets the same depletion rate as in the unmodded game, i.e. fast.
-Default value is set to 50% so that Oil and Ore are depleting with half speed comparing to that of the vanilla game.
+The left position of the sliders (0%) corresponds to unlimited use (resources will not deplete).
+The right position (100%) sets the same depletion rate as in the unmodded game.
+
+If you have compatibility issues set the sliders to 100%. It completely disables this option.
 
 ### Why this mod was created?
 Some mods, which I often use, are so small that it is simpler to add a couple of lines in the code rather than subscribe. Sometimes I also wish different behaviour or more flexible settings.
