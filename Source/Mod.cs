@@ -28,6 +28,10 @@ namespace ExtendedGameOptions
             {
                 return "0% (unlimited)";
             }
+            else if (value == 100)
+            {
+                return "100% (vanilla)";
+            }
             else
             {
                 return value.ToString() + "%";
