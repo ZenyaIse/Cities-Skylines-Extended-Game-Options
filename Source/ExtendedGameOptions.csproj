@@ -59,7 +59,6 @@
     <Compile Include="Economy.cs" />
     <Compile Include="ExtendedGameOptionsManager.cs" />
     <Compile Include="ExtendedGameOptionsSerializable.cs" />
-    <Compile Include="GamePause.cs" />
     <Compile Include="InfoViewButtons.cs" />
     <Compile Include="LoadingExtension.cs" />
     <Compile Include="Milestones.cs" />

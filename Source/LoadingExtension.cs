@@ -10,7 +10,6 @@ namespace ExtendedGameOptions
 
             if (mode == LoadMode.NewGame || mode == LoadMode.LoadGame || mode == LoadMode.NewGameFromScenario)
             {
-                GamePause.OnGameLoaded();
                 InfoViewButtons.Initialize();
             }
         }

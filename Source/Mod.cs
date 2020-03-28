@@ -14,7 +14,7 @@ namespace ExtendedGameOptions
 
         public string Description
         {
-            get { return "Collection of small useful features."; }
+            get { return "Collection of small useful features. Ver.2020/03/28"; }
         }
 
         #region Options UI
@@ -66,11 +66,6 @@ namespace ExtendedGameOptions
 
             //////////// General ////////////
 
-            helper.AddCheckbox("Set pause when the game is loaded", o.PauseOnLoad, delegate (bool isChecked)
-            {
-                o.PauseOnLoad = isChecked;
-                modified = true;
-            });
             helper.AddCheckbox("Enable achievements", o.EnableAchievements, delegate (bool isChecked)
             {
                 o.EnableAchievements = isChecked;

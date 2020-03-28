@@ -2,11 +2,6 @@
 
 This mod is a collection of small features that adds useful functionality to the game.
 
-## Pause on load
-Automatically set pause when the game is loaded or started.
-
-The idea was taken from the Pause on load mod by MrLawbreaker (however the implementation is completely different).
-
 ## Enable achievements
 Usually you cannot get the steam achievements when you are using mods. If this option is enabled, you would be able to get the steam achievements. (The game still shows that the achievements are disabled, but actually they are enabled.)
 
