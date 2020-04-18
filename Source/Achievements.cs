@@ -6,13 +6,16 @@ namespace ExtendedGameOptions
     {
         public static void Update()
         {
-            if (Singleton<SimulationManager>.exists)
+            if (Singleton<SimulationManager>.exists && Singleton<SimulationManager>.instance.m_metaData != null)
             {
-                SimulationMetaData.MetaBool newValue = Singleton<ExtendedGameOptionsManager>.instance.values.EnableAchievements
-                    ? SimulationMetaData.MetaBool.True
-                    : SimulationMetaData.MetaBool.False;
+                //SimulationMetaData.MetaBool newValue = Singleton<ExtendedGameOptionsManager>.instance.values.EnableAchievements
+                //    ? SimulationMetaData.MetaBool.True
+                //    : SimulationMetaData.MetaBool.False;
 
-                Singleton<SimulationManager>.instance.m_metaData.m_disableAchievements = newValue;
+                if (Singleton<ExtendedGameOptionsManager>.instance.values.EnableAchievements)
+                {
+                    Singleton<SimulationManager>.instance.m_metaData.m_disableAchievements = SimulationMetaData.MetaBool.False;
+                }
             }
         }
     }
