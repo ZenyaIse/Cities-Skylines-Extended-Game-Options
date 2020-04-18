@@ -27,6 +27,9 @@ Unlock everything up to a particular milestone. Select Megalopolis to unlock all
 
 All unlock options will take effect only after reloading the game.
 
+## Initial money
+Cash amount that you get when starting a new game.
+
 ## Full refund
 Bulldozing structures built recently gives full refund (you can build and erase without loosing money). Consider this as an "undo" feature.
 
@@ -58,8 +61,3 @@ The left position of the sliders (0%) corresponds to unlimited use (resources wi
 The right position (100%) sets the same depletion rate as in the unmodded game.
 
 If you have compatibility issues set the sliders to 100%. It completely disables this option.
-
-### Why this mod was created?
-Some mods, which I often use, are so small that it is simpler to add a couple of lines in the code rather than subscribe. Sometimes I also wish different behaviour or more flexible settings.
-
-After my collection of options had grown big enough, I decided to combine them into a separate mod. That's why this mod was created.
