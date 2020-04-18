@@ -29,6 +29,7 @@ namespace ExtendedGameOptions
         public int UnlockMilestoneIndex = 13; // 13 - Megalopolis (unlock all)
 
         public bool FullRefund = false;
+        public int InitialMoney = 70 * 1000;
 
         public void Save()
         {

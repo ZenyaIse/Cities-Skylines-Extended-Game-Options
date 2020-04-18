@@ -1,17 +1,20 @@
-﻿using ICities;
+﻿using ColossalFramework;
+using ICities;
 
 namespace ExtendedGameOptions
 {
     public class LoadingExtension : LoadingExtensionBase
     {
+        public override void OnCreated(ILoading loading)
+        {
+            base.OnCreated(loading);
+            Economy.UpdateInitialMoney();
+        }
+
         public override void OnLevelLoaded(LoadMode mode)
         {
             Achievements.Update();
-
-            if (mode == LoadMode.NewGame || mode == LoadMode.LoadGame || mode == LoadMode.NewGameFromScenario)
-            {
-                InfoViewButtons.Initialize();
-            }
+            InfoViewButtons.Initialize();
         }
     }
 }

@@ -7,6 +7,8 @@ namespace ExtendedGameOptions
 {
     public class Mod : IUserMod
     {
+        private static string version = "2020/04/18";
+
         public string Name
         {
             get { return "Extended Game Options"; }
@@ -14,12 +16,11 @@ namespace ExtendedGameOptions
 
         public string Description
         {
-            get { return "Collection of small useful features. Ver.2020/03/28"; }
+            get { return "Collection of small useful features. Ver." + version; }
         }
 
         #region Options UI
 
-        private UIDropDown areasMaxCountDropdown;
         private bool modified = false;
 
         private string getResourceSliderText(int value)
@@ -115,6 +116,18 @@ namespace ExtendedGameOptions
 
             UIHelperBase economyGroup = helper.AddGroup("Economy");
 
+            economyGroup.AddTextfield("Initial money", o.InitialMoney.ToString(), delegate (string text) { }, delegate (string text)
+            {
+                int value;
+                if (int.TryParse(text, out value))
+                {
+                    value = Mathf.Clamp(value, 0, 10*1000*1000);
+                    o.InitialMoney = value;
+                    Economy.UpdateInitialMoney();
+                    modified = true;
+                }
+            });
+
             economyGroup.AddCheckbox("Bulldozing structures built recently gives full refund", o.FullRefund, delegate (bool isChecked)
             {
                 o.FullRefund = isChecked;
@@ -147,7 +160,7 @@ namespace ExtendedGameOptions
 
                 modified = true;
             });
-            areasMaxCountDropdown = (UIDropDown)helper.AddDropdown("Areas", Areas.GetAvailableValuesStr(), o.AreasMaxCount - 1, delegate (int sel)
+            UIDropDown areasMaxCountDropdown = (UIDropDown)helper.AddDropdown("Areas", Areas.GetAvailableValuesStr(), o.AreasMaxCount - 1, delegate (int sel)
             {
                 o.AreasMaxCount = sel + 1;
                 Areas.Update();

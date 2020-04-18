@@ -16,5 +16,10 @@ namespace ExtendedGameOptions
 
             return refundAmount;
         }
+
+        public static void UpdateInitialMoney()
+        {
+            Singleton<EconomyManager>.instance.StartMoney = Singleton<ExtendedGameOptionsManager>.instance.values.InitialMoney * 100;
+        }
     }
 }
