@@ -7,7 +7,7 @@ namespace ExtendedGameOptions
 {
     public class Mod : IUserMod
     {
-        private static string version = "2020/04/18";
+        private static string version = "2021/06/19";
 
         public string Name
         {
@@ -31,7 +31,7 @@ namespace ExtendedGameOptions
             }
             else if (value == 100)
             {
-                return "100% (vanilla)";
+                return "Unchanged";
             }
             else
             {
@@ -70,7 +70,6 @@ namespace ExtendedGameOptions
             helper.AddCheckbox("Enable achievements", o.EnableAchievements, delegate (bool isChecked)
             {
                 o.EnableAchievements = isChecked;
-                Achievements.Update();
                 modified = true;
             });
             helper.AddCheckbox("Info View buttons are always enabled", o.InfoViewButtonsAlwaysEnabled, delegate (bool isChecked)
@@ -116,16 +115,23 @@ namespace ExtendedGameOptions
 
             UIHelperBase economyGroup = helper.AddGroup("Economy");
 
-            economyGroup.AddTextfield("Initial money", o.InitialMoney.ToString(), delegate (string text) { }, delegate (string text)
+            economyGroup.AddTextfield("Initial money (set empty to let unchanged)",
+                o.InitialMoney < 0 ? "" : o.InitialMoney.ToString(),
+                delegate (string text) { },
+                delegate (string text)
             {
                 int value;
                 if (int.TryParse(text, out value))
                 {
                     value = Mathf.Clamp(value, 0, 10*1000*1000);
                     o.InitialMoney = value;
-                    Economy.UpdateInitialMoney();
-                    modified = true;
                 }
+                else
+                {
+                    o.InitialMoney = -1;
+                }
+
+                modified = true;
             });
 
             economyGroup.AddCheckbox("Bulldozing structures built recently gives full refund", o.FullRefund, delegate (bool isChecked)
@@ -163,8 +169,12 @@ namespace ExtendedGameOptions
             UIDropDown areasMaxCountDropdown = (UIDropDown)helper.AddDropdown("Areas", Areas.GetAvailableValuesStr(), o.AreasMaxCount - 1, delegate (int sel)
             {
                 o.AreasMaxCount = sel + 1;
-                Areas.Update();
                 modified = true;
+
+                if (Singleton<ExtendedGameOptionsManager>.instance.values.EnableAreasMaxCountOption)
+                {
+                    Areas.Update();
+                }
             });
 
             helper.AddSpace(20);
@@ -195,6 +205,9 @@ namespace ExtendedGameOptions
             {
                 Singleton<ExtendedGameOptionsManager>.instance.Save();
                 modified = false;
+
+                Achievements.Update();
+                Economy.UpdateInitialMoney();
             }
         }
 
