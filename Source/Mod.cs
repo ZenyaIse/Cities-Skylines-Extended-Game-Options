@@ -115,7 +115,7 @@ namespace ExtendedGameOptions
 
             UIHelperBase economyGroup = helper.AddGroup("Economy");
 
-            economyGroup.AddTextfield("Initial money (set empty to let unchanged)",
+            economyGroup.AddTextfield("Initial money (set blank to not change)",
                 o.InitialMoney < 0 ? "" : o.InitialMoney.ToString(),
                 delegate (string text) { },
                 delegate (string text)

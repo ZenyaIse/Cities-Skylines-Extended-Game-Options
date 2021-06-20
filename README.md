@@ -5,7 +5,7 @@ This mod is a collection of small features that adds useful functionality to the
 ## Enable achievements
 Usually you cannot get the steam achievements when you are using mods. If this option is enabled, you would be able to get the steam achievements. (The game still shows that the achievements are disabled, but actually they are enabled.)
 
-The idea was taken from the Mod Achievement Enabler (it is just one line of code).
+The idea was taken from the Mod Achievement Enabler.
 
 ## Info View buttons are always enabled
 Most info buttons (such as education, crime, land value, etc.) are disabled until you unlock a corresponding milestone. If this option is enabled, all the info buttons are enabled from the beginning.
@@ -28,7 +28,7 @@ Unlock everything up to a particular milestone. Select Megalopolis to unlock all
 All unlock options will take effect only after reloading the game.
 
 ## Initial money
-Cash amount that you get when starting a new game.
+Cash amount that you get when starting a new game. Set the field blank to not change the starting money.
 
 ## Full refund
 Bulldozing structures built recently gives full refund (you can build and erase without loosing money). Consider this as an "undo" feature.
