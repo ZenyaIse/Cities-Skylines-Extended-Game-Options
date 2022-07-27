@@ -29,6 +29,7 @@ All unlock options will take effect only after reloading the game.
 
 ## Initial money
 Cash amount that you get when starting a new game. Set the field blank to not change the starting money.
+You can input the value with thousands separators like 20 000 000 or 20,000,000 or whatever you want - any non numeric characters will be ignored.
 
 ## Full refund
 Bulldozing structures built recently gives full refund (you can build and erase without loosing money). Consider this as an "undo" feature.

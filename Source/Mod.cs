@@ -2,12 +2,13 @@ using ICities;
 using ColossalFramework;
 using ColossalFramework.UI;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 namespace ExtendedGameOptions
 {
     public class Mod : IUserMod
     {
-        private static string version = "2021/06/19";
+        private static string version = "2022/07/25";
 
         public string Name
         {
@@ -115,15 +116,15 @@ namespace ExtendedGameOptions
 
             UIHelperBase economyGroup = helper.AddGroup("Economy");
 
-            economyGroup.AddTextfield("Initial money (set blank to not change)",
-                o.InitialMoney < 0 ? "" : o.InitialMoney.ToString(),
+            economyGroup.AddTextfield("Initial money (set blank to not change). Example: 70 000",
+                o.InitialMoney < 0 ? "" : o.InitialMoney.ToString("N0"),
                 delegate (string text) { },
                 delegate (string text)
             {
-                int value;
-                if (int.TryParse(text, out value))
+                text = Regex.Replace(text, "[^0-9]", "");
+                long value;
+                if (long.TryParse(text, out value))
                 {
-                    value = Mathf.Clamp(value, 0, 10*1000*1000);
                     o.InitialMoney = value;
                 }
                 else

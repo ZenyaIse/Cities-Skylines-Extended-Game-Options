@@ -19,7 +19,7 @@ namespace ExtendedGameOptions
 
         public static void UpdateInitialMoney()
         {
-            int value = Singleton<ExtendedGameOptionsManager>.instance.values.InitialMoney;
+            long value = Singleton<ExtendedGameOptionsManager>.instance.values.InitialMoney;
 
             if (value < 0) return; // Do not change
 
