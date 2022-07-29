@@ -61,11 +61,41 @@
     <Compile Include="ExtendedGameOptionsSerializable.cs" />
     <Compile Include="InfoViewButtons.cs" />
     <Compile Include="LoadingExtension.cs" />
+    <Compile Include="localize\ja.Designer.cs">
+      <DependentUpon>ja.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="localize\ru.Designer.cs">
+      <DependentUpon>ru.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="localize\en.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>en.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Locale.cs" />
     <Compile Include="Milestones.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="OilAndOreResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Threading.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="localize\ja.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ja.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="localize\ru.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ru.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="localize\en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

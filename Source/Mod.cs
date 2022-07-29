@@ -12,12 +12,12 @@ namespace ExtendedGameOptions
 
         public string Name
         {
-            get { return "Extended Game Options"; }
+            get { return Locale.Text("ModName"); }
         }
 
         public string Description
         {
-            get { return "Collection of small useful features. Ver." + version; }
+            get { return Locale.Text("ModDesc") + " Ver." + version; }
         }
 
         #region Options UI
@@ -28,11 +28,11 @@ namespace ExtendedGameOptions
         {
             if (value == 0)
             {
-                return "0% (unlimited)";
+                return "0% (" + Locale.Text("unlimited") + ")";
             }
             else if (value == 100)
             {
-                return "Unchanged";
+                return Locale.Text("Unchanged");
             }
             else
             {
@@ -68,12 +68,12 @@ namespace ExtendedGameOptions
 
             //////////// General ////////////
 
-            helper.AddCheckbox("Enable achievements", o.EnableAchievements, delegate (bool isChecked)
+            helper.AddCheckbox(Locale.Text("EnableAchievements"), o.EnableAchievements, delegate (bool isChecked)
             {
                 o.EnableAchievements = isChecked;
                 modified = true;
             });
-            helper.AddCheckbox("Info View buttons are always enabled", o.InfoViewButtonsAlwaysEnabled, delegate (bool isChecked)
+            helper.AddCheckbox(Locale.Text("InfoViewBtnsEnabled"), o.InfoViewButtonsAlwaysEnabled, delegate (bool isChecked)
             {
                 o.InfoViewButtonsAlwaysEnabled = isChecked;
                 modified = true;
@@ -84,28 +84,28 @@ namespace ExtendedGameOptions
 
             //////////// Unlocks ////////////
 
-            UIHelperBase unlockGroup = helper.AddGroup("Unlocks (requires game reload)");
-            unlockGroup.AddCheckbox("Basic roads are available from the start", o.BasicRoadsAvailableBromStart, delegate (bool isChecked)
+            UIHelperBase unlockGroup = helper.AddGroup(Locale.Text("UnlocksTitle"));
+            unlockGroup.AddCheckbox(Locale.Text("BasicRoads"), o.BasicRoadsAvailableBromStart, delegate (bool isChecked)
             {
                 o.BasicRoadsAvailableBromStart = isChecked;
                 modified = true;
             });
-            unlockGroup.AddCheckbox("Train tracks can be constructed without a train station", o.TrainTrackUnlock, delegate (bool isChecked)
+            unlockGroup.AddCheckbox(Locale.Text("TrainTracks"), o.TrainTrackUnlock, delegate (bool isChecked)
             {
                 o.TrainTrackUnlock = isChecked;
                 modified = true;
             });
-            unlockGroup.AddCheckbox("Metro tunnels can be constructed without a metro station", o.MetroTrackUnlock, delegate (bool isChecked)
+            unlockGroup.AddCheckbox(Locale.Text("MetroTunnels"), o.MetroTrackUnlock, delegate (bool isChecked)
             {
                 o.MetroTrackUnlock = isChecked;
                 modified = true;
             });
-            unlockGroup.AddCheckbox("Unlock everything up to the following milestone", o.UnlockMilestone, delegate (bool isChecked)
+            unlockGroup.AddCheckbox(Locale.Text("UnlockUpTo"), o.UnlockMilestone, delegate (bool isChecked)
             {
                 o.UnlockMilestone = isChecked;
                 modified = true;
             });
-            unlockGroup.AddDropdown("     (select Megalopolis to unlock all)", Milestones.MilestoneLocalizedNames, o.UnlockMilestoneIndex - 1, delegate (int sel)
+            unlockGroup.AddDropdown(Locale.Text("SelectMegalopolis"), Milestones.MilestoneLocalizedNames, o.UnlockMilestoneIndex - 1, delegate (int sel)
             {
                 o.UnlockMilestoneIndex = sel + 1;
                 modified = true;
@@ -114,9 +114,9 @@ namespace ExtendedGameOptions
 
             //////////// Economy ////////////
 
-            UIHelperBase economyGroup = helper.AddGroup("Economy");
+            UIHelperBase economyGroup = helper.AddGroup(Locale.Text("Economy"));
 
-            economyGroup.AddTextfield("Initial money (set blank to not change). Example: 70 000",
+            economyGroup.AddTextfield(Locale.Text("InitialMoney"),
                 o.InitialMoney < 0 ? "" : o.InitialMoney.ToString("N0"),
                 delegate (string text) { },
                 delegate (string text)
@@ -135,7 +135,7 @@ namespace ExtendedGameOptions
                 modified = true;
             });
 
-            economyGroup.AddCheckbox("Bulldozing structures built recently gives full refund", o.FullRefund, delegate (bool isChecked)
+            economyGroup.AddCheckbox(Locale.Text("BulldozingStructures"), o.FullRefund, delegate (bool isChecked)
             {
                 o.FullRefund = isChecked;
                 modified = true;
@@ -146,13 +146,13 @@ namespace ExtendedGameOptions
 
             if (SteamHelper.IsDLCOwned(SteamHelper.DLC.NaturalDisastersDLC))
             {
-                helper.AddCheckbox("Enable random disasters for scenarios", o.EnableRandomDisastersForScenarios, delegate (bool isChecked)
+                helper.AddCheckbox(Locale.Text("EnableDisasters"), o.EnableRandomDisastersForScenarios, delegate (bool isChecked)
                 {
                     o.EnableRandomDisastersForScenarios = isChecked;
                     modified = true;
                 });
             }
-            helper.AddCheckbox("Set number of purchasable areas (uncheck this if using 81 tiles mod)", o.EnableAreasMaxCountOption, delegate (bool isChecked)
+            helper.AddCheckbox(Locale.Text("NumberAreas"), o.EnableAreasMaxCountOption, delegate (bool isChecked)
             {
                 Singleton<ExtendedGameOptionsManager>.instance.values.EnableAreasMaxCountOption = isChecked;
 
@@ -167,7 +167,7 @@ namespace ExtendedGameOptions
 
                 modified = true;
             });
-            UIDropDown areasMaxCountDropdown = (UIDropDown)helper.AddDropdown("Areas", Areas.GetAvailableValuesStr(), o.AreasMaxCount - 1, delegate (int sel)
+            UIDropDown areasMaxCountDropdown = (UIDropDown)helper.AddDropdown(Locale.Text("Areas"), Areas.GetAvailableValuesStr(), o.AreasMaxCount - 1, delegate (int sel)
             {
                 o.AreasMaxCount = sel + 1;
                 modified = true;
@@ -183,13 +183,13 @@ namespace ExtendedGameOptions
 
             //////////// Resources ////////////
 
-            UIHelperBase resourcesHelper = helper.AddGroup("Resources depletion rate");
-            addLabelToResourceSlider(resourcesHelper.AddSlider("Oil depletion rate", 0, 100, 1, o.OilDepletionRate, delegate (float val)
+            UIHelperBase resourcesHelper = helper.AddGroup(Locale.Text("ResourcesDepletionRate"));
+            addLabelToResourceSlider(resourcesHelper.AddSlider(Locale.Text("OilDepletionRate"), 0, 100, 1, o.OilDepletionRate, delegate (float val)
             {
                 o.OilDepletionRate = (int)val;
                 modified = true;
             }));
-            addLabelToResourceSlider(resourcesHelper.AddSlider("Ore depletion rate", 0, 100, 1, o.OreDepletionRate, delegate (float val)
+            addLabelToResourceSlider(resourcesHelper.AddSlider(Locale.Text("OreDepletionRate"), 0, 100, 1, o.OreDepletionRate, delegate (float val)
             {
                 o.OreDepletionRate = (int)val;
                 modified = true;
